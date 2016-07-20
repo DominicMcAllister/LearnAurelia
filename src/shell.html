@@ -2,7 +2,7 @@
     <require from="bootstrap/css/bootstrap.css"></require>
 
     <nav class="navbar navbar-default">
-        <div class="container-fluid">
+        <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
@@ -20,13 +20,15 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <i class="fa fa-cog fa-spin fa-3x" style="margin: 0 auto" if.bind="router.isNavigating"></i>
+                        <!--<i class="fa fa-cog fa-spin fa-3x" style="margin: 0 auto" if.bind="router.isNavigating"></i>-->
+                        <i class="fa fa-cog fa-spin fa-3x" style="margin: 0 auto" show.bind="router.isNavigating"></i>
                     </li>
                 </ul>
+                <div>${timeIs & throttle:1000}</div>
             </div>
         </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container">
         <div class="col-xs-10">
             <!--<compose view="views/events.html" view-model="viewmodels/events"></compose>-->
             <router-view name="mainContent"></router-view>

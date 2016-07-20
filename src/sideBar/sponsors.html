@@ -1,9 +1,58 @@
 <template>
-    Sponsor Name:
+    <div>
+        <b>One Time Title:</b> <div textContent.one-time='title'></div>
+    </div>
+    <div>
+        <b>Two Way Title:</b> <div textContent.bind='title'></div>
+    </div>
     <input value.bind="SponsorName" />
-    <br/>
-    <button type="button" click.trigger="Persist()">Persist</button>
-    <br/>
-    Persisted: ${PersistedSponsor}
-
+    <div>
+        <!-- trigger will create a new reference per element -->
+        <button type="button" click.trigger="Persist('PersistedSponsor1')">Persist Trigger</button> ${PersistedSponsor1}
+    </div>
+    <div>
+        <!-- delgate shares the linked reference to the persist method regardless of # of elements -->
+        <button type="button" click.delegate="Persist('PersistedSponsor2')">Persist Delegate</button> ${PersistedSponsor2}
+    </div>
+    <div>
+        <!-- passing as a function pointer -->
+        <button type="button" click.call="Persist('PersistedSponsor3')">Persist Pointer</button> ${PersistedSponsor3}
+    </div>
+    <div>
+        <!--Ref Binding: <input type="text" ref="input1" style="background:${yellowBackgroundColor}" />-->
+        Ref Binding: <input type="text" ref="input1" css="background:${yellowBackgroundColor}" />
+        <!--<div style.bind="styleString">${input1.value & throttle:1000}</div>-->
+        <div style.bind="styleString">${input1.value & debounce:1000}</div>
+    </div>
+    <div>
+        Status: <input type="text" value.bind="customerStatus" css="background:${customerStatus == undefined || customerStatus == '' ? 'red' : 'green'}" />
+    </div>
+    <div style.bind='styleObject' repeat.for="[key, value] of mapCollection">
+        ${key} : ${value}
+    </div>
+    <div>
+        <select id="cmbStates" value.bind="selectedState">
+            <option repeat.for="state of states" value.bind="state">${state}</option>
+        </select>
+        <br />Value: ${selectedState}
+    </div>
+        <div>
+        <select id="cmbStates2" value.bind="selectedState2">
+            <option repeat.for="state of states2" model.bind="state">${state.Name} (${state.Abbreviation})</option>
+        </select>
+        <br />Value: ${selectedState2.Abbreviation}
+    </div>
+    <div>
+        <input type="checkbox" value.bind="hasSkills" checked.bind="hasSkills">Has Skills?</div>
+        ${hasSkills}
+    </div>
+    <div>
+        <input type="text" value.bind="person.firstName" />
+        <input type="text" value.bind="person.lastName" />
+        ${person.fullName & oneWay}
+    </div>
+    <div>
+        <require from="common/freshness"></require>
+        <div repeat.for="trade of trades" css="background: ${trade.time | freshness & signal:'check-freshness'}">${trade.amount}</div>
+    </div>
 </template>

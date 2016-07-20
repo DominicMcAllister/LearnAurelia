@@ -1,0 +1,40 @@
+<template>
+    <div>
+        Github UserName: <input type="text" value.bind="username">
+        <button type="button" click.delegate="searchUser('http')">HttpClient</button>
+        <button type="button" click.delegate="searchUser('fetch')">FetchClient</button>
+    </div>
+    <div>
+        <h1>User Details (via: ${method})</h1>
+        <i class="fa fa-cog fa-spin fa-3x" style="margin: 0 auto" show.bind="loadingUser"></i>
+        <div if.bind="userDetails && !loadingUser">
+            <div>ID: ${userDetails.id}</div>
+            <div><img src="${userDetails.avatar_url}"></div>
+            <div>Name: ${userDetails.name}</div>
+            <div>Location: ${userDetails.location}</div>
+            <div>Public Repos: ${userDetails.public_repos}</div>
+        </div>
+    </div>
+    <div if.bind="userDetails">
+        <h1>User Repos<h1>
+        <i class="fa fa-cog fa-spin fa-3x" style="margin: 0 auto" show.bind="loadingRepos"></i>
+        <div if.bind="!loadingRepos && userDetails.repos">
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Stars</th>
+                    <th>Language</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr repeat.for="repo of userDetails.repos">
+                    <td><a href="'#/repo/' + ${user.login} + '/' + ${repo.name}">${repo.name}</a>
+                    <td>${repo.stargazers_count}</td>
+                    <td>${repo.language}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>

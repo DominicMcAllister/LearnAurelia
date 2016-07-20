@@ -3,6 +3,10 @@ import {ViewLocator} from 'aurelia-framework';
 import {DataCache} from 'dataCache';
 
 export function configure(aurelia){
+
+    aurelia.use.instance('githubApiRoot', 'https://api.github.com/')
+    aurelia.use.globalResources('common/dateFormat');
+
     aurelia.use.standardConfiguration()
                .developmentLogging();
                
