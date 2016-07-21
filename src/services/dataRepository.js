@@ -3,6 +3,8 @@ import {jobsData, states, jobTypes, jobSkills} from 'services/jobsData';
 import moment from 'moment';
 import {BindingSignaler} from 'aurelia-templating-resources';
 import {inject} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
+import {NotificationPayload} from 'common/NotificationPayload';
 
 function filterEvents(futureOrPast, events){
     let results = JSON.parse(JSON.stringify(events));
@@ -22,10 +24,15 @@ function filterEvents(futureOrPast, events){
     return results;
 }
 
-@inject(BindingSignaler)
+@inject(BindingSignaler, EventAggregator)
 export class DataRepository{
-    constructor(signaler){
+    constructor(signaler, eventAggregator){
+        this.eventAggregator = eventAggregator;
+
         setInterval(() => {signaler.signal('check-freshness');}, 1000);
+        setInterval(() => this.eventAggregator.publish(new NotificationPayload(moment().format("HH:mm:ss") + ' (5 sec refresh)')), 5000);
+        setInterval(() => this.eventAggregator.publish('topicNotification', new NotificationPayload(moment().format("HH:mm:ss") + ' (3 sec refresh)')), 3000);
+        
     }
 
     getEvents(pastOrFuture){

@@ -8,7 +8,11 @@ export function configure(aurelia){
     aurelia.use.globalResources('common/dateFormat');
 
     aurelia.use.standardConfiguration()
-               .developmentLogging();
+               .developmentLogging()
+               .plugin('aurelia-dialog')
+               .plugin('aurelia-validation')
+               .plugin('aurelia-validatejs');
+            //    .feature('bootstrap-validation');
                
     //explicitely declare singleton for datacache
     aurelia.use.singleton(DataCache);

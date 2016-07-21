@@ -21,7 +21,12 @@ export class Sponsors {
         this.person = new Person();
 
         this.trades = [{amount: 99.93, time: new Date()}];
-        setInterval(() => this.trades.push({amount: Math.round(Math.random() * 100.00, 2), time: new Date()}), 3000);
+        setInterval(() => {
+            if(this.trades.length == 10){
+                this.trades = [];
+            }
+            this.trades.push({amount: Math.round(Math.random() * 100.00, 2), time: new Date()})
+        }, 3000);
     }
 
     Persist(foo){

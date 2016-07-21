@@ -1,8 +1,20 @@
 import toastr from 'toastr';
 import moment from 'moment';
+import {EventAggregator} from 'aurelia-event-aggregator';
+import {NotificationPayload} from 'common/NotificationPayload';
+import {inject} from 'aurelia-framework';
 
+@inject(EventAggregator)
 export class Shell {
-    constructor(){
+    constructor(eventAggregator){
+        this.eventAggregator = eventAggregator;
+        this.eventAggregator.subscribe(NotificationPayload, payload => {
+            this.notificationPayload = payload.time;
+        });
+        this.eventAggregator.subscribe('topicNotification', payload => {
+            this.notificationTopic = payload.time;
+        });
+
         setInterval(() => this.timeIs = moment().format("hh:mm:ss.SSSS"), 100);
     }
 
