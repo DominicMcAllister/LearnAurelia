@@ -1,4 +1,11 @@
 <template>
+    <require from="common/itemsControl2"></require>
+    <div items-control2.bind="jobs">
+        <div>
+            <h2>${title} - ${location.city}</h2>
+        </div>
+    </div>
+
     <h3>Job Listings</h3>
     <button type="button" click.delegate="addJob()">Add New</button>
     <table class="table table-striped">

@@ -1,10 +1,14 @@
 <template>
     <!--<require from="common/dateFormat"></require>-->
+    <require from="common/speakerImage"></require>
+    <require from="common/speakerImage2"></require>
     <div class="row">
-        <div class="col-md-1">
-            <img src='../images/speakers/${event.image}' style="width:100%;max-width:200px;height:100px;" />
+        <div class="col-md-3">
+            <!--<img src='../images/speakers/${event.image}' style="width:100%;max-width:200px;height:100px;" />-->
+            <img speaker-img="${event.image}" style="width:100%;max-width:200px;height:100px;" />
+            <img speaker-img2="image-name.bind: event.image; is-bordered.bind: 'meh'" />
         </div>
-        <div class="col-md-11">
+        <div class="col-md-9">
             <h3>${event.title}</h3>
             <h5>${event.dateTime | dateFormat:'MM/YYYY'}</h5>
             <button click.delegate="editEvent(event)" type="button">Edit</button>
